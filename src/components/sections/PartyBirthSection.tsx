@@ -30,13 +30,13 @@ const outcomes = [
 
 export default function PartyBirthSection() {
   return (
-    <section id={SECTION_IDS.BIRTH} className="py-20 md:py-28 bg-gradient-to-br from-stone-900 via-red-950 to-stone-900 relative overflow-hidden">
+    <section id={SECTION_IDS.BIRTH} className="py-32 md:py-48 bg-gradient-to-br from-stone-900 via-red-950 to-stone-900 relative overflow-hidden">
       {/* Decorative */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 right-0 w-80 h-80 bg-amber-400 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="standard-frame relative z-10">
         <SectionTitle
           title="Sự ra đời của Đảng"
           subtitle="Ngày 3 tháng 2 năm 1930 – Đảng Cộng sản Việt Nam chính thức được thành lập."

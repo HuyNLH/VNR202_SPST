@@ -10,6 +10,19 @@
   --color-gold-dark: #b45309;
   --color-obsidian: #0a0a0a;
   --color-silk-red: #991b1b;
+  --color-burgundy-900: #1a0505;
+  --color-burgundy-800: #2d0a0a;
+  --color-burgundy-700: #4a0404;
+  --color-burgundy-600: #7c0404;
+  --color-burgundy-500: #991b1b;
+  --color-burgundy-400: #b91c1c;
+  --color-burgundy-300: #dc2626;
+  --color-burgundy-200: #ef4444;
+  --color-burgundy-100: #fee2e2;
+  --color-burgundy-50: #fef2f2;
+  --color-cream-50: #fffefb;
+  --color-cream-100: #fdfaf3;
+  --color-cream-200: #f5f1e6;
 }
 
 @layer base {
@@ -80,6 +93,21 @@
     display: none; /* Chrome, Safari and Opera */
   }
 
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(251, 191, 36, 0.3);
+  }
+
   .mesh-gradient-bg {
     background-color: #0a0a0a;
     background-image: 
@@ -87,5 +115,10 @@
       radial-gradient(at 100% 0%, hsla(45, 100%, 15%, 0.15) 0px, transparent 50%),
       radial-gradient(at 100% 100%, hsla(0, 100%, 10%, 0.1) 0px, transparent 50%),
       radial-gradient(at 0% 100%, hsla(45, 100%, 10%, 0.1) 0px, transparent 50%);
+  }
+
+  /* Global Layout Frame */
+  .standard-frame {
+    @apply max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20;
   }
 }

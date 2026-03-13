@@ -16,7 +16,7 @@ export default function SectionTitle({ title, subtitle, light = false }: Section
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      className="text-center mb-16 md:mb-24"
+      className="text-center mb-16 md:mb-24 max-w-4xl mx-auto"
     >
       <div className="flex flex-col items-center">
         {/* Decorative Top Line */}

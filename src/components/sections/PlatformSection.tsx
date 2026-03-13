@@ -11,7 +11,7 @@ export default function PlatformSection() {
       {/* Background Lighting */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-red-900/10 rounded-full blur-[120px] pointer-events-none" />
       
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+      <div className="standard-frame relative z-10 flex flex-col items-center">
         <SectionTitle
           title="Cương lĩnh đầu tiên"
           subtitle="Nền tảng tư tưởng và kim chỉ nam hành động của Đảng Cộng sản Việt Nam từ những ngày đầu sôi nổi."

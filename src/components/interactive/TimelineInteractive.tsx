@@ -5,6 +5,7 @@ import { timelineData } from '@/data/timeline';
 import TimelineItem from '@/components/ui/TimelineItem';
 import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
+import Modal from '@/components/ui/Modal';
 
 export default function TimelineInteractive() {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -26,25 +27,14 @@ export default function TimelineInteractive() {
         />
       ))}
 
-      {/* Details panel */}
-      <AnimatePresence>
-        {activeEvent?.details && (
-          <motion.div
-            key={activeEvent.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="mt-8 bg-gradient-to-br from-amber-50 to-white rounded-2xl p-6 md:p-8 border border-amber-200 shadow-md"
-          >
-            <p className="text-xs font-semibold uppercase tracking-widest text-red-700 mb-2">
-              {activeEvent.year}
-            </p>
-            <h4 className="font-heading text-xl font-bold text-stone-800 mb-3">{activeEvent.title}</h4>
-            <p className="text-stone-700 leading-relaxed">{activeEvent.details}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Modal
+        isOpen={!!activeId}
+        onClose={() => setActiveId(null)}
+        title={activeEvent?.title || ''}
+        subtitle={activeEvent?.year}
+      >
+        <p>{activeEvent?.details}</p>
+      </Modal>
     </div>
   );
 }

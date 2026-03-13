@@ -7,7 +7,7 @@ export const timelineData: TimelineEvent[] = [
     title: 'Pháp xâm lược Việt Nam',
     description: 'Thực dân Pháp nổ súng xâm lược Việt Nam tại Đà Nẵng, mở đầu quá trình đô hộ kéo dài gần một thế kỷ.',
     details:
-      'Ngày 1/9/1858, liên quân Pháp – Tây Ban Nha tấn công bán đảo Sơn Trà (Đà Nẵng). Triều đình nhà Nguyễn lần lượt ký các hiệp ước nhượng bộ, từng bước mất chủ quyền.',
+      'Ngày 1/9/1858, thực dân Pháp nổ súng xâm lược Việt Nam tại Đà Nẵng. Sau đó, triều đình nhà Nguyễn từng bước thỏa hiệp qua các hiệp ước 1862, 1874, 1883 và đến Hiệp ước Patơnốt năm 1884 thì đầu hàng hoàn toàn.',
   },
   {
     id: 'tl-2',

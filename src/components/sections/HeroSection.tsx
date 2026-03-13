@@ -18,35 +18,16 @@ export default function HeroSection() {
   return (
     <section
       id={SECTION_IDS.HERO}
-      className="relative min-h-[100vh] flex items-center justify-center overflow-hidden mesh-gradient-bg"
+      className="relative min-h-[100vh] flex items-center justify-center overflow-hidden bg-burgundy-900"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/images/background.png')`,
+        backgroundSize: '100% 100%',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
-      {/* Dynamic Background Elements */}
-      <div className="absolute inset-0 z-0">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-900/40 rounded-full blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.1, 0.15, 0.1],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-amber-900/30 rounded-full blur-[120px]"
-        />
-      </div>
 
-      {/* Modern Overlay Pattern */}
-      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style={{
-        backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
-        backgroundSize: '100px 100px',
-      }} />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center py-20">
+      <div className="relative z-10 standard-frame text-center py-24 md:py-32 lg:py-40">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -66,9 +47,9 @@ export default function HeroSection() {
 
           {/* Main Title */}
           <motion.div variants={fadeInUp} className="relative mb-8">
-            <h1 className="font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[0.9] tracking-tighter">
+            <h1 className="font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold text-white leading-tight tracking-tighter">
               BƯỚC NGOẶT
-              <span className="block mt-4 bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 bg-clip-text text-transparent text-glow-gold">
+              <span className="block mt-4 py-2 bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 bg-clip-text text-transparent text-glow-gold">
                 02/1930
               </span>
             </h1>

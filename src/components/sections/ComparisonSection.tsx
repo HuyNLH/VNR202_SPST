@@ -12,7 +12,7 @@ export default function ComparisonSection() {
       {/* Background Decorative Gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_50%,rgba(251,191,36,0.03),transparent_50%)]" />
       
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="standard-frame relative z-10">
         <SectionTitle
           title="Tầm vóc & Khác biệt"
           subtitle="Sự thay đổi căn bản về chất trong phong trào cách mạng Việt Nam kể từ khi có Đảng lãnh đạo."
