@@ -14,7 +14,7 @@ export default function TimelineSection() {
       <div className="standard-frame relative z-10">
         <SectionTitle
           title="Dòng thời gian"
-          subtitle="Từ họng súng kẻ thù đến ánh bình minh của Đảng. Một hành trình kiên thực và bất khuất của dân tộc qua từng dấu mốc lịch sử."
+          subtitle="Từ họng súng kẻ thù đến ánh bình minh của Đảng. Một hành trình kiên cường và bất khuất của dân tộc Việt Nam qua những bước ngoặt lịch sử."
           light
         />
         

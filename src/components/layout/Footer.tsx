@@ -1,4 +1,4 @@
-import { Facebook, Github, Mail, ShieldCheck, BookOpen, ExternalLink } from 'lucide-react';
+import { ShieldCheck, BookOpen, ExternalLink } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,17 +27,6 @@ export default function Footer() {
             <p className="text-stone-400 text-sm leading-relaxed max-w-sm mb-8 font-sans font-light">
               Hành trình di sản và những dấu mốc vĩ đại của Đảng Cộng sản Việt Nam. Một không gian số giáo dục nhằm lan tỏa giá trị lịch sử dân tộc.
             </p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-stone-400 hover:bg-white/10 hover:text-white transition-all">
-                <Github className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-stone-400 hover:bg-white/10 hover:text-white transition-all">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-stone-400 hover:bg-white/10 hover:text-white transition-all">
-                <Mail className="w-4 h-4" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -45,23 +34,23 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Tài liệu tham khảo</h4>
             <ul className="space-y-4 text-sm font-sans font-light">
               <li>
-                <a href="#" className="text-stone-500 hover:text-amber-400 transition-colors flex items-center gap-2 group">
+                <a href="https://tulieuvankien.dangcongsan.vn/tu-lieu-van-kien-dang/van-kien-dang-toan-tap" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-amber-400 transition-colors flex items-center gap-2 group">
                   <BookOpen className="w-3.5 h-3.5" />
                   <span>Văn kiện Đảng toàn tập</span>
                   <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
               </li>
               <li>
-                <a href="#" className="text-stone-500 hover:text-amber-400 transition-colors flex items-center gap-2 group">
+                <a href="https://tulieuvankien.dangcongsan.vn/tu-lieu-van-kien-dang/lich-su-dang" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-amber-400 transition-colors flex items-center gap-2 group">
                   <BookOpen className="w-3.5 h-3.5" />
                   <span>Lịch sử Đảng Cộng sản VN</span>
                   <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
               </li>
               <li>
-                <a href="#" className="text-stone-500 hover:text-amber-400 transition-colors flex items-center gap-2 group">
+                <a href="https://baotanglichsu.vn/vi" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-amber-400 transition-colors flex items-center gap-2 group">
                   <BookOpen className="w-3.5 h-3.5" />
-                  <span>Học tập tấm gương HCM</span>
+                  <span>Bảo tàng Lịch sử Quốc gia</span>
                   <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
               </li>
@@ -85,15 +74,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="pt-8 border-t border-white/5 flex flex-col items-center justify-center">
           <p className="text-[11px] text-stone-600 font-medium">
             © {currentYear} Lịch sử Đảng Việt Nam. Developed with passion for History.
           </p>
-          <div className="flex items-center gap-8 text-[11px] text-stone-600 font-medium uppercase tracking-[0.2em]">
-            <a href="#" className="hover:text-stone-400 transition-colors">Bảo mật</a>
-            <a href="#" className="hover:text-stone-400 transition-colors">Điều khoản</a>
-            <a href="#" className="hover:text-stone-400 transition-colors">Liên hệ</a>
-          </div>
         </div>
       </div>
     </footer>

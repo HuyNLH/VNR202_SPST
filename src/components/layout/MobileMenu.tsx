@@ -87,7 +87,7 @@ export default function MobileMenu({ isOpen, onClose, onItemClick }: MobileMenuP
         {/* Footer */}
         <div className="p-8 border-t border-white/10 bg-black/20">
           <p className="text-center text-[10px] uppercase tracking-[0.4em] text-stone-500 font-medium">
-            Phát triển bởi MMXXVI
+            Phát triển bởi Hành trình Lịch sử Đảng
           </p>
         </div>
       </div>

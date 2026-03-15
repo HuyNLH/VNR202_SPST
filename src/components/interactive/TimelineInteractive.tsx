@@ -33,7 +33,25 @@ export default function TimelineInteractive() {
         title={activeEvent?.title || ''}
         subtitle={activeEvent?.year}
       >
-        <p>{activeEvent?.details}</p>
+        <div className="flex flex-col gap-6">
+          <p>{activeEvent?.details}</p>
+          {activeEvent?.image && (
+            <div className="space-y-3">
+              <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <img 
+                  src={activeEvent.image} 
+                  alt={activeEvent.title} 
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              {activeEvent.imageCaption && (
+                <p className="text-xs text-stone-500 italic text-center">
+                  {activeEvent.imageCaption}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
       </Modal>
     </div>
   );

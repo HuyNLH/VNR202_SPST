@@ -92,7 +92,7 @@ export default function MegaMenu({ isOpen, onClose, onItemClick }: MegaMenuProps
         {/* Decorative Bottom Bar */}
         <div className="bg-black/40 px-8 py-4 border-t border-white/5 flex items-center justify-between">
           <p className="text-[10px] text-stone-500 font-medium uppercase tracking-[0.3em]">
-            Hành trình Lịch sử Đảng — MMXXVI
+            Hành trình Lịch sử Đảng
           </p>
           <div className="flex gap-4">
             <span className="w-1.5 h-1.5 rounded-full bg-burgundy-900" />

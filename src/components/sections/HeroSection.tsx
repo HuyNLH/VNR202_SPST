@@ -89,7 +89,7 @@ export default function HeroSection() {
       {/* Decorative side text */}
       <div className="absolute left-10 top-1/2 -rotate-90 origin-left hidden xl:block">
         <span className="text-[10px] uppercase tracking-[1em] text-white/20 font-sans">
-          EDUCATIONAL EXPERIENCE — MMXXVI
+          EDUCATIONAL EXPERIENCE
         </span>
       </div>
 

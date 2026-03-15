@@ -29,7 +29,7 @@ export default function ConclusionSection() {
           
           <h2 className="font-heading text-4xl md:text-6xl font-extrabold text-white mb-10 tracking-tight leading-tight">
             Một bước ngoặt, <br />
-            <span className="bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">Muôn vàn tương lai</span>
+            <span className="bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">mở đường tương lai.</span>
           </h2>
           
           <div className="glass-card rounded-[2.5rem] p-10 md:p-14 border-white/5 shadow-2xl relative overflow-hidden group hover:border-amber-400/20 transition-all duration-700">
@@ -41,8 +41,8 @@ export default function ConclusionSection() {
               mà là ánh bình minh chấm dứt đêm dài khủng hoảng về đường lối cứu nước.
             </p>
             <p className="text-lg text-stone-500 leading-relaxed font-sans font-extralight italic">
-              "Kể từ đây, vận mệnh dân tộc đã gắn liền với sự lãnh đạo của Đảng, 
-              mở ra kỷ nguyên độc lập, tự do và chủ nghĩa xã hội cho Việt Nam."
+              Kể từ đây, vận mệnh dân tộc đã gắn liền với sự lãnh đạo của Đảng, 
+              mở ra kỷ nguyên độc lập, tự do và chủ nghĩa xã hội cho Việt Nam.
             </p>
           </div>
           

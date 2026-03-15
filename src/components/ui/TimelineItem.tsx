@@ -3,6 +3,7 @@
 import * as motion from 'motion/react-client';
 import { TimelineEvent } from '@/types';
 import { cn } from '@/lib/utils';
+import { Flame } from 'lucide-react';
 
 interface TimelineItemProps {
   event: TimelineEvent;
@@ -21,7 +22,7 @@ export default function TimelineItem({ event, isActive, onClick, index }: Timeli
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.7, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "relative flex items-center w-full mb-12 sm:mb-20",
+        "relative flex items-center w-full mb-12 sm:mb-20 group",
         isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
       )}
     >
@@ -71,17 +72,52 @@ export default function TimelineItem({ event, isActive, onClick, index }: Timeli
         </button>
       </div>
 
-      {/* Center dot/cue */}
       <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center z-10">
-        <div
-          className={cn(
-            "w-5 h-5 rounded-full border-2 transition-all duration-500 flex items-center justify-center",
-            isActive 
-              ? "bg-amber-400 border-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.5)] scale-125" 
-              : "bg-obsidian border-stone-800"
-          )}
-        >
-          {isActive && <div className="w-1.5 h-1.5 bg-obsidian rounded-full" />}
+        <div className="relative flex items-center justify-center">
+          {/* Flame Glow Backdrop */}
+          <motion.div
+            animate={isActive ? {
+              scale: [1, 1.5, 1.2],
+              opacity: [0.5, 0.8, 0.5],
+            } : {}}
+            transition={{ repeat: Infinity, duration: 2 }}
+            className={cn(
+              "absolute inset-0 blur-xl rounded-full transition-all duration-500",
+              isActive ? "bg-orange-500/40" : "bg-transparent group-hover:bg-orange-500/20"
+            )}
+          />
+          
+          <motion.div
+            animate={isActive || true ? {
+              y: [0, -2, 0],
+              scale: [1, 1.05, 1],
+            } : {}}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            className={cn(
+              "relative flex items-center justify-center transition-all duration-500 rounded-full bg-obsidian z-20",
+              isActive ? "scale-150 p-1" : "scale-100 group-hover:scale-125 p-0.5"
+            )}
+          >
+            <Flame 
+              className={cn(
+                "w-6 h-6 transition-all duration-500 fill-current",
+                isActive 
+                  ? "text-orange-500 drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]" 
+                  : "text-stone-800 group-hover:text-orange-600 group-hover:drop-shadow-[0_0_5px_rgba(234,88,12,0.5)] shadow-none"
+              )} 
+            />
+            
+            {/* Inner core flame for active state */}
+            {isActive && (
+              <motion.div
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ repeat: Infinity, duration: 1 }}
+                className="absolute inset-0 flex items-center justify-center p-1"
+              >
+                <Flame className="w-6 h-6 text-amber-300 fill-current blur-[2px]" />
+              </motion.div>
+            )}
+          </motion.div>
         </div>
       </div>
 

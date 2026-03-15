@@ -6,6 +6,8 @@ import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { cn } from '@/lib/utils';
 import * as motion from 'motion/react-client';
 import { Menu, ChevronDown, Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import MegaMenu from './MegaMenu';
 import MobileMenu from './MobileMenu';
 
@@ -13,29 +15,35 @@ const MAIN_NAV = [
   { id: SECTION_IDS.HERO, label: 'Trang chủ', hasMega: false },
   { id: 'content', label: 'Nội dung', hasMega: true },
   { id: 'audio-narrative', label: 'Thuyết minh', isAudio: true },
-  { id: SECTION_IDS.QUIZ, label: 'Trắc nghiệm', hasMega: false },
+  { id: 'ai-stats', label: 'Thống kê AI', isLink: true, href: '/ai-stats' },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === '/';
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMegaOpen, setIsMegaOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [manualActiveId, setManualActiveId] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.5); // Default volume 50%
+  const [isVolumeHovered, setIsVolumeHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  
+
   const sectionIds = Object.values(SECTION_IDS);
   const scrollActiveId = useScrollSpy(sectionIds, 120);
-  
-  const activeId = manualActiveId || scrollActiveId;
 
-  // Force scroll to top on refresh
+  const activeId = isHomePage ? (manualActiveId || scrollActiveId) : null;
+
+  // Force scroll to top on route change or mount
   useEffect(() => {
     window.scrollTo(0, 0);
     // Some browsers need a slight delay
     const timer = setTimeout(() => window.scrollTo(0, 0), 10);
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
   // Handle scroll state for pill transformation
   useEffect(() => {
@@ -44,9 +52,16 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Sync volume with audio element
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
   const toggleAudio = () => {
     if (!audioRef.current) return;
-    
+
     if (isPlaying) {
       audioRef.current.pause();
     } else {
@@ -60,9 +75,16 @@ export default function Navbar() {
       toggleAudio();
       return;
     }
-    setManualActiveId(id);
+
     setIsMegaOpen(false);
     setIsMobileOpen(false);
+
+    if (!isHomePage) {
+      router.push(id === SECTION_IDS.HERO ? '/' : `/#${id}`);
+      return;
+    }
+
+    setManualActiveId(id);
 
     const el = document.getElementById(id);
     if (el) {
@@ -88,8 +110,8 @@ export default function Navbar() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className={cn(
             "relative pointer-events-auto flex items-center gap-3 md:gap-4 transition-all duration-500 ease-in-out px-4 py-2 md:px-6 md:py-3 lg:px-8 lg:py-4",
-            isScrolled 
-              ? "bg-burgundy-950/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] border border-white/10 rounded-full" 
+            isScrolled
+              ? "bg-burgundy-950/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] border border-white/10 rounded-full"
               : "bg-stone-950/20 md:bg-white/5 border border-white/5 md:backdrop-blur-md rounded-2xl md:rounded-[2.5rem]"
           )}
         >
@@ -117,22 +139,25 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
             {MAIN_NAV.map((item) => (
-              <div 
+              <div
                 key={item.id}
                 className="relative"
                 onMouseEnter={() => item.hasMega && setIsMegaOpen(true)}
               >
-                <button
-                  onClick={() => item.isAudio ? toggleAudio() : !item.hasMega && scrollTo(item.id)}
+                <div
                   className={cn(
-                    "relative px-4 lg:px-6 py-2.5 text-[12px] lg:text-[13px] font-bold uppercase tracking-[0.1em] lg:tracking-[0.15em] transition-all duration-300 rounded-full flex items-center gap-2",
-                    (item.isAudio && isPlaying) || (item.hasMega ? isMegaOpen : activeId === item.id)
-                      ? "text-white" 
+                    "cursor-default relative px-4 lg:px-6 py-2.5 text-[12px] lg:text-[13px] font-bold uppercase tracking-[0.1em] lg:tracking-[0.15em] transition-all duration-300 rounded-full flex items-center gap-2",
+                    (item.isAudio && isPlaying) || (item.hasMega ? isMegaOpen : (item.isLink ? pathname === item.href : activeId === item.id))
+                      ? "text-white"
                       : "text-stone-400 hover:text-stone-100"
                   )}
                 >
                   {item.isAudio && (
-                    <div className="relative">
+                    <div
+                      className="relative flex items-center"
+                      onMouseEnter={() => setIsVolumeHovered(true)}
+                      onMouseLeave={() => setIsVolumeHovered(false)}
+                    >
                       {isPlaying ? (
                         <div className="flex gap-0.5 items-end h-3 mb-0.5">
                           <motion.div animate={{ height: [4, 12, 6, 10, 4] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-0.5 bg-amber-400" />
@@ -142,13 +167,78 @@ export default function Navbar() {
                       ) : (
                         <Volume2 className="w-4 h-4 opacity-60" />
                       )}
+
+                      {/* Volume Slider Dropdown */}
+                      <motion.div
+                        initial={{ opacity: 0, width: 0, scale: 0.8 }}
+                        animate={{
+                          opacity: isVolumeHovered ? 1 : 0,
+                          width: isVolumeHovered ? 80 : 0,
+                          scale: isVolumeHovered ? 1 : 0.8,
+                          marginLeft: isVolumeHovered ? 12 : 0
+                        }}
+                        className="overflow-hidden flex items-center"
+                        onClick={(e) => e.stopPropagation()} // Prevent toggling play state when adjusting volume
+                        onPointerDown={(e) => e.stopPropagation()}
+                        onKeyDown={(e) => e.stopPropagation()}
+                      >
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.01"
+                          value={volume}
+                          onChange={(e) => setVolume(parseFloat(e.target.value))}
+                          onPointerDown={(e) => e.stopPropagation()}
+                          onMouseDown={(e) => e.stopPropagation()}
+                          onClick={(e) => e.stopPropagation()}
+                          className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-amber-400 [&::-webkit-slider-thumb]:rounded-full hover:[&::-webkit-slider-thumb]:scale-125 transition-all outline-none"
+                        />
+                      </motion.div>
                     </div>
                   )}
-                  <span className="relative z-10">{item.label}</span>
-                  {item.hasMega && (
-                    <ChevronDown className={cn("w-4 h-4 transition-transform duration-300 opacity-60", isMegaOpen && "rotate-180 opacity-100")} />
+                  {item.isAudio ? (
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      className="relative z-10 whitespace-nowrap cursor-pointer px-1 py-1"
+                      onClick={() => toggleAudio()}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          toggleAudio();
+                        }
+                      }}
+                    >
+                      {item.label}
+                    </div>
+                  ) : item.isLink ? (
+                    <Link
+                      href={item.href!}
+                      className="relative z-10 whitespace-nowrap cursor-pointer px-1 py-1"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      className="relative z-10 whitespace-nowrap cursor-pointer px-1 py-1"
+                      onClick={() => !item.hasMega && scrollTo(item.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          !item.hasMega && scrollTo(item.id);
+                        }
+                      }}
+                    >
+                      {item.label}
+                    </div>
                   )}
-                  {((item.isAudio && isPlaying) || (item.hasMega ? isMegaOpen : activeId === item.id)) && (
+                  {item.hasMega && (
+                    <ChevronDown className={cn("w-4 h-4 transition-transform duration-300 opacity-60 shrink-0", isMegaOpen && "rotate-180 opacity-100")} />
+                  )}
+                  {((item.isAudio && isPlaying) || (item.hasMega ? isMegaOpen : (item.isLink ? pathname === item.href : activeId === item.id))) && (
                     <motion.div
                       layoutId="active-pill"
                       className={cn(
@@ -158,12 +248,12 @@ export default function Navbar() {
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
-                </button>
+                </div>
               </div>
             ))}
           </div>
 
-          <audio 
+          <audio
             ref={audioRef}
             src="/audio/thuyet-minh.mp3"
             onEnded={() => setIsPlaying(false)}
@@ -171,9 +261,9 @@ export default function Navbar() {
           />
 
           {/* Mega Menu Dropdown - Now centered and matching Navbar width */}
-          <MegaMenu 
-            isOpen={isMegaOpen} 
-            onClose={() => setIsMegaOpen(false)} 
+          <MegaMenu
+            isOpen={isMegaOpen}
+            onClose={() => setIsMegaOpen(false)}
             onItemClick={scrollTo}
           />
 
@@ -188,10 +278,10 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Drawer */}
-      <MobileMenu 
-        isOpen={isMobileOpen} 
-        onClose={() => setIsMobileOpen(false)} 
-        onItemClick={scrollTo} 
+      <MobileMenu
+        isOpen={isMobileOpen}
+        onClose={() => setIsMobileOpen(false)}
+        onItemClick={scrollTo}
       />
     </>
   );

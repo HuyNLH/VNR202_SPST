@@ -4,6 +4,8 @@ export interface TimelineEvent {
   title: string;
   description: string;
   details?: string;
+  image?: string;
+  imageCaption?: string;
 }
 
 export interface Movement {
