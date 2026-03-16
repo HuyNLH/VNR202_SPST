@@ -12,9 +12,9 @@ import MegaMenu from './MegaMenu';
 import MobileMenu from './MobileMenu';
 
 const MAIN_NAV = [
-  { id: SECTION_IDS.HERO, label: 'Trang chủ', hasMega: false },
   { id: 'content', label: 'Nội dung', hasMega: true },
   { id: 'audio-narrative', label: 'Thuyết minh', isAudio: true },
+  { id: 'minigame', label: 'Minigame', isLink: true, href: '/minigame' },
   { id: 'ai-stats', label: 'Thống kê AI', isLink: true, href: '/ai-stats' },
 ];
 
@@ -37,13 +37,56 @@ export default function Navbar() {
 
   const activeId = isHomePage ? (manualActiveId || scrollActiveId) : null;
 
-  // Force scroll to top on route change or mount
+  // Force scroll to top on route change or mount, but ONLY if there's no hash AND no silent scroll target
   useEffect(() => {
-    window.scrollTo(0, 0);
-    // Some browsers need a slight delay
-    const timer = setTimeout(() => window.scrollTo(0, 0), 10);
-    return () => clearTimeout(timer);
+    if (typeof window !== 'undefined') {
+      const hasHash = !!window.location.hash;
+      const hasSilentTarget = !!sessionStorage.getItem('scrollTarget');
+      
+      if (!hasHash && !hasSilentTarget) {
+        window.scrollTo(0, 0);
+        const timer = setTimeout(() => {
+          if (!window.location.hash && !sessionStorage.getItem('scrollTarget')) {
+            window.scrollTo(0, 0);
+          }
+        }, 10);
+        return () => clearTimeout(timer);
+      }
+    }
   }, [pathname]);
+
+  // Handle cross-page navigation (Silent & Hash)
+  useEffect(() => {
+    if (isHomePage && typeof window !== 'undefined') {
+      const silentTarget = sessionStorage.getItem('scrollTarget');
+      const hashTarget = window.location.hash.substring(1);
+      const targetId = silentTarget || hashTarget;
+
+      if (targetId) {
+        // Wait for components to mount
+        const timer = setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) {
+            const offset = 100;
+            const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - offset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth',
+            });
+
+            // Clean up
+            if (silentTarget) {
+              sessionStorage.removeItem('scrollTarget');
+            } else if (hashTarget) {
+              window.history.replaceState(null, '', window.location.pathname);
+            }
+          }
+        }, 100);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [isHomePage, pathname]);
 
   // Handle scroll state for pill transformation
   useEffect(() => {
@@ -65,7 +108,9 @@ export default function Navbar() {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+      audioRef.current.play().catch(() => {
+        // Silent catch for autoplay restrictions
+      });
     }
     setIsPlaying(!isPlaying);
   };
@@ -80,7 +125,8 @@ export default function Navbar() {
     setIsMobileOpen(false);
 
     if (!isHomePage) {
-      router.push(id === SECTION_IDS.HERO ? '/' : `/#${id}`);
+      sessionStorage.setItem('scrollTarget', id);
+      router.push('/');
       return;
     }
 

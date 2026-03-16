@@ -12,22 +12,14 @@ interface MobileMenuProps {
 }
 
 const MOBILE_ITEMS = [
-  { id: SECTION_IDS.HERO, label: 'Trang chủ', icon: <Home className="w-5 h-5" /> },
   { 
-    label: 'Nội dung lịch sử', 
+    label: 'Khám phá', 
     isHeader: true 
   },
-  { id: SECTION_IDS.PROBLEM, label: 'Bối cảnh', icon: <BookOpen className="w-5 h-5" /> },
-  { id: SECTION_IDS.MOVEMENTS, label: 'Phong trào yêu nước', icon: <Flag className="w-5 h-5" /> },
-  { id: SECTION_IDS.TIMELINE, label: 'Dòng thời gian', icon: <Star className="w-5 h-5" /> },
-  { id: SECTION_IDS.BIRTH, label: 'Thành lập Đảng', icon: <Flag className="w-5 h-5" /> },
-  { id: SECTION_IDS.PLATFORM, label: 'Cương lĩnh đầu tiên', icon: <BookOpen className="w-5 h-5" /> },
-  { 
-    label: 'Tiện ích', 
-    isHeader: true 
-  },
+  { id: 'content', label: 'Nội dung lịch sử', icon: <BookOpen className="w-5 h-5" />, hasMega: true },
   { id: 'audio-narrative', label: 'Thuyết minh', icon: <Volume2 className="w-5 h-5" /> },
-  { id: SECTION_IDS.QUIZ, label: 'Trắc nghiệm', icon: <HelpCircle className="w-5 h-5" /> },
+  { id: 'minigame', label: 'Minigame', icon: <HelpCircle className="w-5 h-5" /> },
+  { id: 'ai-stats', label: 'Thống kê AI', icon: <BarChart3 className="w-5 h-5" /> },
 ];
 
 export default function MobileMenu({ isOpen, onClose, onItemClick }: MobileMenuProps) {
