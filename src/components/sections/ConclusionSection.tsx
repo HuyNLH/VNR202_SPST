@@ -10,7 +10,7 @@ export default function ConclusionSection() {
   return (
     <section
       id={SECTION_IDS.CONCLUSION}
-      className="relative py-32 md:py-48 overflow-hidden bg-obsidian"
+      className="relative py-24 md:py-32 overflow-hidden bg-obsidian"
     >
       {/* Decorative background glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />

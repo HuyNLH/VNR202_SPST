@@ -27,7 +27,7 @@ export default function HeroSection() {
       }}
     >
 
-      <div className="relative z-10 standard-frame text-center py-24 md:py-32 lg:py-40">
+      <div className="relative z-10 standard-frame text-center py-20 md:py-24 lg:py-32">
         <motion.div
           variants={staggerContainer}
           initial="hidden"

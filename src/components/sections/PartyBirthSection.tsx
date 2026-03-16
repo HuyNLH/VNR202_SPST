@@ -34,7 +34,7 @@ const outcomes = [
 
 export default function PartyBirthSection() {
   return (
-    <section id={SECTION_IDS.BIRTH} className="py-32 md:py-48 bg-gradient-to-br from-stone-950 via-[#0a0505] to-stone-950 relative overflow-hidden">
+    <section id={SECTION_IDS.BIRTH} className="py-24 md:py-32 bg-gradient-to-br from-stone-950 via-[#0a0505] to-stone-950 relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-900/5 rounded-full blur-[120px] pointer-events-none" />

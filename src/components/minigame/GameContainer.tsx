@@ -23,6 +23,13 @@ export default function GameContainer() {
     return () => stopAllSounds();
   }, [stopAllSounds]);
 
+  // Automatically scroll to top when minigame screen changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [state.currentScreen]);
+
   const renderScreen = () => {
     switch (state.currentScreen) {
       case 'start': return <StartScreen />;

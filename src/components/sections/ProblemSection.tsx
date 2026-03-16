@@ -25,7 +25,7 @@ export default function ProblemSection() {
     <section
       ref={containerRef}
       id={SECTION_IDS.PROBLEM}
-      className="py-32 md:py-48 bg-obsidian relative overflow-hidden"
+      className="py-24 md:py-32 bg-obsidian relative overflow-hidden"
     >
       {/* Cinematic Background Elements */}
       <motion.div 
